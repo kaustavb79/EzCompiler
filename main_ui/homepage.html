@@ -25,49 +25,48 @@
             </ul>
           </header>
     </div>
-    <div class="container-fluid w-100">
-        <ul class="nav nav-tabs">
-            <li class="nav-item">
-                <span class="nav-link" data-toggle="editor-segment" data-target="editorSegmentPython">Python 3</span>
-            </li>
-            <li class="nav-item">
-                <span class="nav-link" data-toggle="editor-segment" data-target="editorSegmentCpp">C + +</span>
-            </li>
-        </ul>
-    </div>
-    <div class="container-fluid w-100 editor-segment" id="editorSegmentPython" aria-labelledby="editorSegment">
-        <div class="row">
-            <div class="col">
-                <button type="button" data-id="python3" class="btn btn-primary float-end" id="run">Run</button>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <textarea class="form-control" id="sourceCodeArea" wrap="hard" placeholder="Python 3" required></textarea>
-            </div>
-            <div class="col">
-                <textarea class="form-control" id="outputArea" readonly></textarea>
-            </div>
-        </div>
-    </div>
 
-    
-    <div class="container-fluid w-100 editor-segment" id="editorSegmentCpp" aria-labelledby="editorSegment">
-        <div class="row">
-            <div class="col">
-                <button type="button" data-id="cpp" class="btn btn-primary float-end" id="run">Run</button>
+    <div class="d-flex align-items-start">
+        <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <button class="nav-link active" id="python3-tab" data-bs-toggle="tab" data-bs-target="#python3" type="button" role="tab" aria-controls="python3" aria-selected="true">Python 3</button>
+            <button class="nav-link" id="cpp-tab" data-bs-toggle="tab" data-bs-target="#cpp" type="button" role="tab" aria-controls="cpp" aria-selected="false">C + +</button>
+            <button class="nav-link" id="csharp-tab" data-bs-toggle="tab" data-bs-target="#csharp" type="button" role="tab" aria-controls="csharp" aria-selected="false">C#</button>
+          </div>
+        <div class="tab-content">
+            <div class="tab-pane fade editor-segment" id="python3" role="tabpanel" aria-labelledby="python3-tab">
+                <div class="row">
+                    <div class="col">
+                        <button type="button" data-id="python3" class="btn btn-primary float-end" id="run">Run</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <textarea class="form-control" id="sourceCodeArea" wrap="hard" placeholder="Python 3" required></textarea>
+                    </div>
+                    <div class="col">
+                        <textarea class="form-control" id="outputArea" readonly></textarea>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <textarea class="form-control" id="sourceCodeArea" wrap="hard" placeholder="C++" required></textarea>
-            </div>
-            <div class="col">
-                <textarea class="form-control" id="outputArea" readonly></textarea>
+
+            
+            <div class="tab-pane fade editor-segment" id="cpp" role="tabpanel" aria-labelledby="cpp-tab">
+                <div class="row">
+                    <div class="col">
+                        <button type="button" data-id="cpp" class="btn btn-primary float-end" id="run">Run</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <textarea class="form-control" id="sourceCodeArea" wrap="hard" placeholder="C++" required></textarea>
+                    </div>
+                    <div class="col">
+                        <textarea class="form-control" id="outputArea" readonly></textarea>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script src="homepage.js"></script>
