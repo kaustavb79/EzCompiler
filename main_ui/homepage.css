@@ -6,10 +6,6 @@ span{
     margin:10px;
 }
 
-#sourceCodeArea{
-
-}
-
-#OutputArea{
-    
+.source-code-area,.stdin,.output-area{
+    resize: none
 }
