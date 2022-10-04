@@ -1,0 +1,11 @@
+span{
+    cursor: grab;
+}
+
+#run{
+    margin:10px;
+}
+
+.source-code-area,.stdin,.output-area{
+    resize: none
+}

@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+import json
 import os
 from pathlib import Path
 
@@ -81,8 +82,11 @@ WSGI_APPLICATION = 'EzCompiler.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'OPTIONS': {
+            'read_default_file': 'resources/db_config/db_config.cnf',
+            'init_command': 'SET default_storage_engine=INNODB',
+        },
     }
 }
 
@@ -133,3 +137,13 @@ MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MAX_UPLOAD_SIZE = "104857600"
 
+with open('resources/app_home/lang_config.json') as lang_config_file:
+    LANG_CONFIG_FILE = json.load(lang_config_file)
+
+
+FILE_UPLOAD_HANDLERS = [
+    'django.core.files.uploadhandler.MemoryFileUploadHandler',
+    'django.core.files.uploadhandler.TemporaryFileUploadHandler',
+]
+
+FILE_UPLOAD_PERMISSIONS = 0o644

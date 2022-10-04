@@ -5,13 +5,14 @@
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
         <meta content="utf-8" http-equiv="encoding">
-        <title>{% block title %}World-News{% endblock %}</title>
-		<link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}"/>
-		<style>{% include 'static_files/assets/loader.css'%}</style>
+		<meta charset="UTF-8">
+    	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>{% block title %}EzCompiler{% endblock %}</title>
+		<link rel="shortcut icon" href="{% static 'assets/images/favicon.jpg' %}"/>
+		<link rel="stylesheet" href="{% static 'assets/loader.css' %}"/>
 		<link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}"/>
-		<script type="text/javascript" src="{% static 'assets/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-		<script type="text/javascript" src="{% static 'assets/jquery/jquery-3.6.1.js' %}"></script>
-        {% block head %} {% endblock %}
+		<script type="text/javascript" src="{% static 'assets/bootstrap/js/bootstrap.bundle.min.js' %}"></script>	
+		<style>{% include 'app_home/css/homepage.css'%}</style>
     </head>
 
     <body>
@@ -20,28 +21,15 @@
 				<span class="spinner"></span>
 			</div>
 		</div>
-    	<!-- HEADER -->
-    	<header>
-			<img src="{% static 'assets/images/headerlogo.png' %}" class="header-image" alt="World News">
-		</header>
-	  	<!-- HEADER END-->
-		
-        <!-- partial:partials/_navbar.html -->
-        {% include 'news/partials/_navbar.html' %}      
-        <!-- partial -->
+		{% include 'app_home/html/_header.html' %}   
         
-		<div class="container">
-			{% block content %}
-			{% endblock %}
-		</div>
+		{% block content %}
+		{% endblock %}
 		
-		<!-- partial:partials/_footer.html -->
-		{% include 'news/partials/_footer.html' %} 
-		<!-- partial -->
+		<script type="text/javascript" src="{% static 'assets/jquery/jquery-3.6.1.js' %}"></script>
+		<script type="text/javascript" src="{% static 'assets/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 		<script type="text/javascript">
-			{% include 'static_files/js/base.js' %}
-			{% include 'static_files/js/_navbar.js' %}
+			{% include 'app_home/js/homepage.js' %}
 		</script>
-        {% block javascript %}{% endblock %}
     </body>
 </html>
