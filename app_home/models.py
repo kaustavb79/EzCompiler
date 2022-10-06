@@ -16,10 +16,10 @@ def validate_upload_file(fieldfile_obj):
 
 class CompilerAPIModel(models.Model):
     request_id = models.UUIDField(primary_key=True, default=uuid.uuid4)
-    source_code_file = models.FileField(upload_to='media_file/source_code',null=True, blank=True)
+    source_code = models.TextField(null=True, blank=False)
     additional_file = models.FileField(upload_to='media_file/external_file',null=True, blank=True,validators=[validate_upload_file],help_text='Maximum file size allowed is 50Mb')
     code_language = models.CharField(max_length=10)
-    final_response = models.CharField(null=True, blank=True,max_length=2000)
+    final_response = models.TextField(null=True, blank=True)
     date_time = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:
