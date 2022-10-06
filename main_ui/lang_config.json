@@ -1,9 +1,37 @@
 {
-    "Python 3":"py3",
-    "Python 2":"py",
-    "C++":"cpp",
-    "C":"c",
-    "C#":"cs",
-    "Java":"java",
-    "SQL":"sql"
+	"Python 3": {
+		"extension": "py3",
+		"version_check": "python3 --version",
+		"default_helper_code": "print('Welcome to EzCompiler')"
+	},
+	"Python 2": {
+		"extension": "py",
+		"version_check": "python --version",
+		"default_helper_code": "print('Welcome to EzCompiler')"
+	},
+	"C++": {
+		"extension": "cpp",
+		"version_check": "g++ --version",
+		"default_helper_code": ""
+	},
+	"C": {
+		"extension": "c",
+		"version_check": "gcc --version",
+		"default_helper_code": ""
+	},
+	"C#": {
+		"extension": "cs",
+		"version_check": "csharp --version",
+		"default_helper_code": ""
+	},
+	"Java": {
+		"extension": "javac",
+		"version_check": "javac --version",
+		"default_helper_code": ""
+	},
+	"SQL": {
+		"extension": "cpp",
+		"version_check": "mysql --version",
+		"default_helper_code": "SELECT * FROM Customers;"
+	}
 }

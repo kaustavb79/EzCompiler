@@ -19,11 +19,12 @@ function initTabs(lang_config){
     var count = 1;
     for (let key in lang_config) {
         // console.log(key, lang_config[key]);
-        var btn_id = lang_config[key]+"-tab";
-        var btn_target_id = "editor-"+lang_config[key];
-        var btn_extension = lang_config[key];
+        var btn_id = lang_config[key].extension+"-tab";
+        var btn_target_id = "editor-"+lang_config[key].extension;
+        var btn_extension = lang_config[key].extension;
         var btn_class = "nav-link pe-3";
         var aria_selected = false;
+        var helper_code = lang_config[key].default_helper_code;
         if(count === 1){
             btn_class += " active";
             aria_selected = true;
@@ -32,12 +33,12 @@ function initTabs(lang_config){
         
         $("#v-pills-tab").append(text);
 
-        updateEditor(key,btn_id,btn_target_id,btn_extension);
+        updateEditor(key,btn_id,btn_target_id,btn_extension,helper_code);
         count++;
     };
 }
 
-function updateEditor(lang,id,target_id,extension){
+function updateEditor(lang,id,target_id,extension,helper_code){
     var class_name_input = ""
     if(lang === "java"){
 
@@ -46,14 +47,14 @@ function updateEditor(lang,id,target_id,extension){
     var editor_section = `<div class="tab-pane fade editor-segment" id="`+target_id+`" role="tabpanel" aria-labelledby="`+id+`">
         <div class="row">
             <div class="col">
-                <button type="button" data-id="`+extension+`" class="btn btn-primary float-end w-25" id="run">Run</button>
+                <button type="button" data-id="`+extension+`" class="btn btn-primary float-end w-25" id="run">Execute `+lang+`</button>
             </div>
         </div>
         <div class="row editor-area">
             <div class="col">
                 <div class="row mb-2">
                     <div class="col">
-                        <textarea class="form-control source-code-area" id="sourceCodeArea" wrap="hard" data-id="`+extension+`" rows="15" placeholder="`+lang+`" required></textarea>
+                        <textarea class="form-control source-code-area" id="sourceCodeArea" wrap="hard" data-id="`+extension+`" rows="15" placeholder="`+lang+`" required>`+helper_code+`</textarea>
                     </div>
                 </div>
                 <div class="row">
