@@ -7,12 +7,16 @@ console.log(host_addr);
 $(document).ready(function(){
     var jsonObject = JSON.parse('{{ lang_config | escapejs }}');
     initTabs(jsonObject);
+    hljs.highlightAll();
 
     $('.nav-link').unbind('click.dispVersion',displayCompilerVersion);
     $('.nav-link').bind('click.dispVersion',displayCompilerVersion);
 
     $('.execute').unbind('click.compile',compile);
     $('.execute').bind('click.compile',compile);
+
+    $('.code').unbind('input.highlight',codeHighlight);
+    $('.code').bind('input.highlight',codeHighlight);
 });
 
 function initTabs(lang_config){
@@ -26,6 +30,7 @@ function initTabs(lang_config){
         var btn_class = "nav-link pe-3";
         var aria_selected = false;
         var helper_code = lang_config[key].default_helper_code;
+        var syntax_class = lang_config[key].syntax_class;
         if(count === 1){
             btn_class += " active";
             aria_selected = true;
@@ -34,12 +39,12 @@ function initTabs(lang_config){
         
         $("#v-pills-tab").append(text);
 
-        updateEditor(key,btn_id,btn_target_id,btn_extension,helper_code);
+        updateEditor(key,btn_id,btn_target_id,btn_extension,helper_code,syntax_class);
         count++;
     };
 }
 
-function updateEditor(lang,id,target_id,extension,helper_code){
+function updateEditor(lang,id,target_id,extension,helper_code,syntax_class){
     var class_name_input = ""
     if(lang === "java"){
 
@@ -55,18 +60,20 @@ function updateEditor(lang,id,target_id,extension,helper_code){
             <div class="col">
                 <div class="row mb-2">
                     <div class="col">
-                        <textarea class="form-control source-code-area" id="sourceCodeArea_`+extension+`" wrap="hard" data-id="`+extension+`" rows="15" placeholder="Type your `+lang+` code/statement here..." required>`+helper_code+`</textarea>
+                        <textarea class="form-control source-code-area code" id="sourceCodeArea_`+extension+`" wrap="hard" data-id="`+extension+`" data-syntax="`+syntax_class+`" placeholder="Type your `+lang+` code/statement here..." contenteditable="true" required>`+helper_code+`</textarea>
+                        <pre id="highlighting"><code class="language-`+syntax_class+`" id="highlighting-content">`+helper_code+`</code></pre>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
                         <label for="stdinArea p-10">STDIN:</label>
-                        <textarea class="form-control stdin mt-2" id="stdinArea_`+extension+`" wrap="hard" rows="4" data-id="`+extension+`" placeholder="stdin" required></textarea>
+                        <textarea class="form-control stdin mt-2" id="stdinArea_`+extension+`" wrap="hard" data-id="`+extension+`" placeholder="stdin" required>
+                        </textarea>
                     </div>
                 </div>
             </div>
             <div class="col">
-                <textarea class="form-control output-area" id="outputArea_`+extension+`" rows="22" data-id="`+extension+`" placeholder="output" onhover='displayCompilerVersion' readonly></textarea>
+                <div class="form-control output-area" id="outputArea_`+extension+`" rows="22" data-id="`+extension+`" placeholder="output" readonly><samp></samp></div>
             </div>
         </div>
     </div>`
@@ -76,17 +83,18 @@ function updateEditor(lang,id,target_id,extension,helper_code){
 
 function displayCompilerVersion(event){
     // console.log(event);
-    var data_id = {lang : $(event.currentTarget).attr('aria-controls')};
-    var output_area = $('#outputArea_'+data_id.lang);
+    var data_id = $(event.currentTarget).attr('aria-controls');
+    var output_area = $('#outputArea_'+data_id).children('samp');
+    // var language = $('#sourceCodeArea_'+data_id).attr('data-syntax');
     $.ajax({
         type: "GET",
-        url: host_addr+'/api/lang_comp_ver/'+data_id.lang+'/',
+        url: host_addr+'/api/lang_comp_ver/'+data_id+'/',
         cache: false,
         async: true,      
         success: function(res){
             if(res.status === "success"){
                 // console.log(output_area);
-                output_area.val(">>>> Compiler: "+res.output+" Loaded....") 
+                output_area.html(">>>> Compiler: \n"+res.output+" Loaded....") 
             }
             else{
                 console.log(res);
@@ -115,6 +123,8 @@ function displayCompilerVersion(event){
             console.log(msg);
         }        
     });
+    // var text = $('#sourceCodeArea_'+data_id).val();
+    // hljs.highlight(text,{language:language});
 }
 
 function compile(event){
@@ -122,9 +132,14 @@ function compile(event){
     var data_id = $(event.currentTarget).attr('data-id');
     var source_code = $('#sourceCodeArea_'+data_id).val(); 
     var stdin = $('#stdinArea_'+data_id).val(); 
-    console.log("data_id: ",data_id);
-    console.log(source_code);
-    console.log(stdin);
+    // console.log("data_id: ",data_id);
+    // console.log(source_code);
+    // console.log(stdin);
 }
 
-
+function codeHighlight(event){
+    var language = $(event.currentTarget).attr('data-syntax');
+    console.log(language);
+    var text = $(event.currentTarget).val();
+    hljs.highlight(text,{language:language});
+}
